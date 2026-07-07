@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic Focus - Productivity Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <aside>
+        <div class="logo-container">
+            <h1 class="logo-text">
+                Kinetic <span>Focus</span>
+            </h1>
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-item active" id="nav-tasks">
+                <i data-lucide="check-square"></i>
+                <span>Tasks</span>
+            </div>
+            <div class="nav-item" id="nav-focus">
+                <i data-lucide="zap"></i>
+                <span>Focus</span>
+            </div>
+            <div class="nav-item" id="nav-profile">
+                <i data-lucide="user"></i>
+                <span>Profile</span>
+            </div>
+        </nav>
+
+        <div class="settings-container">
+            <div class="nav-item" id="nav-settings">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <header>
+            <div class="header-title-section">
+                <h1 id="dashboard-title">Productivity Dashboard</h1>
+                <div class="subtitle" id="real-time-clock">Loading day and time...</div>
+            </div>
+            <div class="search-container" id="header-search-container">
+                <i data-lucide="search"></i>
+                <input type="text" id="task-search" class="search-input" placeholder="Search tasks, docs...">
+            </div>
+        </header>
+
+        <div id="tasks-view" class="view-content active-view">
+            <div class="stats-grid">
+                <div class="dashboard-card">
+                    <div class="progress-circle-wrapper">
+                        <svg class="progress-circle-svg" viewBox="0 0 80 80">
+                            <circle class="progress-circle-bg" cx="40" cy="40" r="34"></circle>
+                            <circle class="progress-circle-val" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" id="progress-circle-bar"></circle>
+                        </svg>
+                        <div class="progress-circle-text" id="progress-percentage-text">0%</div>
+                    </div>
+                    <div class="stats-info">
+                        <h2>Today's Focus</h2>
+                        <p id="stats-summary-text">0 tasks completed today. Start adding tasks to build your focus!</p>
+                        <button class="keep-going-btn" id="keep-going-action">Keep Going</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card streak-card">
+                    <div class="streak-header">
+                        <h2>Progress Streak</h2>
+                        <p>Last 3 days performance</p>
+                    </div>
+                    <div class="streak-chart">
+                        <div class="streak-bar-container">
+                            <div class="streak-bar-outer">
+                                <div class="streak-bar-inner" id="streak-day-2"></div>
+                            </div>
+                            <span class="streak-day-label" id="streak-label-2">Day -2</span>
+                        </div>
+                        <div class="streak-bar-container">
+                            <div class="streak-bar-outer">
+                                <div class="streak-bar-inner" id="streak-day-1"></div>
+                            </div>
+                            <span class="streak-day-label" id="streak-label-1">Day -1</span>
+                        </div>
+                        <div class="streak-bar-container">
+                            <div class="streak-bar-outer">
+                                <div class="streak-bar-inner" id="streak-day-today"></div>
+                            </div>
+                            <span class="streak-day-label today">Today</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-card">
+                <div class="input-field-wrapper">
+                    <input type="text" id="new-task-title" placeholder="What's next?">
+                </div>
+                <div class="input-controls">
+                    <div class="priority-pills">
+                        <button class="priority-pill high active">High</button>
+                        <button class="priority-pill med">Med</button>
+                        <button class="priority-pill low">Low</button>
+                    </div>
+                    <button class="add-task-btn">
+                        <i data-lucide="plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">Active Tasks</h2>
+                    <span class="count-badge" id="pending-count-badge">0 Pending</span>
+                </div>
+                <div class="tasks-container" id="active-tasks-list"></div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <button class="completed-accordion" id="accordion-toggle-btn">
+                    <i data-lucide="chevron-down" id="accordion-chevron"></i>
+                    <span>Recently Completed</span>
+                </button>
+                <div class="completed-list" id="completed-tasks-list"></div>
+            </div>
+        </div>
+
+        <div id="focus-view" class="view-content">
+            <div class="focus-dashboard">
+                <div class="focus-panel-card">
+                    <h2><i data-lucide="timer"></i>Pomodoro Timer</h2>
+                    <div class="pomodoro-container">
+                        <div class="timer-modes">
+                            <button class="timer-mode-btn active">Work (25m)</button>
+                            <button class="timer-mode-btn">Short Break</button>
+                            <button class="timer-mode-btn">Long Break</button>
+                        </div>
+                        <div class="timer-display" id="timer-time-display">25:00</div>
+                        <div class="timer-controls">
+                            <button class="timer-btn timer-btn-primary" id="timer-toggle-btn">Start Focus</button>
+                            <button class="timer-btn timer-btn-secondary" id="timer-reset-btn">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="focus-panel-card">
+                    <h2><i data-lucide="alert-triangle"></i>High Priority Focus</h2>
+                    <div id="high-priority-status-container"></div>
+                    <div class="focus-tasks-list" id="high-priority-tasks-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-view" class="view-content">
+            <div class="profile-card">
+                <div class="profile-avatar-container">
+                    <div class="profile-avatar">U</div>
+                    <div class="profile-level-badge" id="profile-level-text">Lvl 1</div>
+                </div>
+                <h2 class="profile-name">User Profile</h2>
+                <div class="profile-title" id="profile-level-title">Productivity Apprentice</div>
+
+                <div class="profile-stats-grid">
+                    <div class="profile-stat-box">
+                        <div class="profile-stat-num" id="profile-stat-total">0</div>
+                        <div class="profile-stat-label">Total Created</div>
+                    </div>
+                    <div class="profile-stat-box">
+                        <div class="profile-stat-num" id="profile-stat-completed">0</div>
+                        <div class="profile-stat-label">Completed</div>
+                    </div>
+                    <div class="profile-stat-box">
+                        <div class="profile-stat-num" id="profile-stat-ratio">0%</div>
+                        <div class="profile-stat-label">Completion Ratio</div>
+                    </div>
+                    <div class="profile-stat-box">
+                        <div class="profile-stat-num" id="profile-stat-streak">0</div>
+                        <div class="profile-stat-label">Streak (Days)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings-view" class="view-content">
+            <div class="settings-card">
+                <h2 style="font-family: var(--font-display); margin-bottom: 2rem;"><i data-lucide="sliders" style="margin-right: 0.5rem; vertical-align: middle;"></i>Configuration Settings</h2>
+                
+                <div class="settings-option">
+                    <div class="settings-info">
+                        <h3>Dark Mode</h3>
+                        <p>Toggle dark-themed dashboard styling</p>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="settings-option">
+                    <div class="settings-info">
+                        <h3>Daily Task Goal</h3>
+                        <p>Number of completed tasks to reach 100% daily focus</p>
+                    </div>
+                    <input type="number" id="daily-goal-input" class="number-input" min="1" max="50" value="8">
+                </div>
+
+                <div class="settings-option">
+                    <div class="settings-info">
+                        <h3>Reset Dashboard Data</h3>
+                        <p>Permanently delete all tasks and clear statistics</p>
+                    </div>
+                    <button class="danger-btn">Reset Data</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
